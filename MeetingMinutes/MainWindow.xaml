@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MeetingMinutes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" WindowState="Maximized" WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <Button x:Name="captureNewMeeting_btn" Content="Capture New Meeting" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="28" Width="134" Click="captureNewMeeting_btn_Click"/>
+
     </Grid>
 </Window>
