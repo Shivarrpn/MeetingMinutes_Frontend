@@ -1,6 +1,11 @@
-﻿using System.Net.Http;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
+using System.ComponentModel;
 
 namespace MeetingMinutes
 {
@@ -10,6 +15,8 @@ namespace MeetingMinutes
     public partial class CaptureNewMeeting : Window
     {
         private static readonly HttpClient client = new HttpClient();
+        private string meetingTypeSelection;
+        private bool isChangingSelection = false;
         public CaptureNewMeeting()
         {
             InitializeComponent();
@@ -18,7 +25,7 @@ namespace MeetingMinutes
 
         private async Task LoadMeetingTypeDropdown()
         {
-            var meetingType = await MeetingTypeProcessor.LoadMeetingTypes();
+            var meetingType = await ApiProcessor.LoadMeetingTypes();
 
             for (int i = 0; i < meetingType.Count; i++)
             {
@@ -29,6 +36,90 @@ namespace MeetingMinutes
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             await LoadMeetingTypeDropdown();
+        }
+
+        private async void meetingType_cmb_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (isChangingSelection) return;
+
+                if (previousMeetingItemsToForward_lvw.Items.Count > 0)
+                {
+                    MessageBoxResult result = MessageBox.Show("Are you sure you wish to change meeting type?\n\nPlease note that by selecting yes, all items selected to load into meeting will be cleared", "Please Confirm Change", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        previousMeetingItems_lvw.Items.Clear();
+                        previousMeetingItemsToForward_lvw.Items.Clear();
+
+                        var previousMeetingItems = await ApiProcessor.GetPreviousMeetingItems(meetingType_cmb.SelectedValue.ToString());
+                        foreach (var item in previousMeetingItems)
+                        {
+                            previousMeetingItems_lvw.Items.Add(item);
+                        }
+                    }
+                    else if (result == MessageBoxResult.No)
+                    {
+                        isChangingSelection = true;
+                        meetingType_cmb.SelectedItem = meetingTypeSelection;
+                        isChangingSelection = false;
+                    }
+                }
+                else
+                {
+                    previousMeetingItems_lvw.Items.Clear();
+                    previousMeetingItemsToForward_lvw.Items.Clear();
+
+                    var previousMeetingItems = await ApiProcessor.GetPreviousMeetingItems(meetingType_cmb.SelectedValue.ToString());
+                    foreach (var item in previousMeetingItems)
+                    {
+                        previousMeetingItems_lvw.Items.Add(item);
+                    }
+                    meetingTypeSelection = meetingType_cmb.SelectedValue.ToString();
+                }
+        }
+
+        private void forward_btn_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedItemsToMove = previousMeetingItems_lvw.SelectedItems.Cast<GetMeetingItemsDto>().ToList();
+
+            foreach (var selectedItem in selectedItemsToMove)
+            {
+                previousMeetingItemsToForward_lvw.Items.Add(selectedItem);
+                previousMeetingItems_lvw.Items.Remove(selectedItem);
+                previousMeetingItems_lvw.Items.SortDescriptions.Add(new SortDescription("meetingItem_id", ListSortDirection.Ascending));
+                previousMeetingItemsToForward_lvw.Items.SortDescriptions.Add(new SortDescription("meetingItem_id", ListSortDirection.Ascending));
+            }
+        }
+
+        private void return_btn_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedItemsToMove = previousMeetingItemsToForward_lvw.SelectedItems.Cast<GetMeetingItemsDto>().ToList();
+
+            foreach (var selectedItem in selectedItemsToMove)
+            {
+                previousMeetingItems_lvw.Items.Add(selectedItem);
+                previousMeetingItemsToForward_lvw.Items.Remove(selectedItem);
+                previousMeetingItems_lvw.Items.SortDescriptions.Add(new SortDescription("meetingItem_id", ListSortDirection.Ascending));
+                previousMeetingItemsToForward_lvw.Items.SortDescriptions.Add(new SortDescription("meetingItem_id", ListSortDirection.Ascending));
+            }
+        }
+
+        private void meetingDate_dp_SelectedDateChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (meetingDate_dp.SelectedDate < System.DateTime.Today)
+            {
+                MessageBox.Show("You cannot select any date before the current date", "Invalid Date Selected", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                meetingDate_dp.SelectedDate = System.DateTime.Today;
+            }
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to cancel?", "Confirm Meeting Cancellation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.No)
+            {
+                e.Cancel = true;
+            }
         }
     }
 }
