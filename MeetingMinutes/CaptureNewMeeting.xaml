@@ -12,8 +12,8 @@
         <Label x:Name="meetingDate_lbl" Content="Meeting Date:" HorizontalAlignment="Left" Margin="180,10,0,0" VerticalAlignment="Top" Width="102"/>
         <DatePicker x:Name="meetingDate_dp" HorizontalAlignment="Left" Margin="180,41,0,0" VerticalAlignment="Top" SelectedDateChanged="meetingDate_dp_SelectedDateChanged"/>
         <Label x:Name="meetingTime_lbl" Content="Meeting Time:" HorizontalAlignment="Left" Margin="326,10,0,0" VerticalAlignment="Top" Width="102"/>
-        <TextBox x:Name="meetingTime_tbx" HorizontalAlignment="Left" Margin="326,41,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <ListView x:Name="previousMeetingItems_lvw" Margin="10,124,423,79">
+        <TextBox x:Name="meetingTime_tbx" HorizontalAlignment="Left" Margin="326,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="24"/>
+        <ListView x:Name="previousMeetingItems_lvw" Margin="10,124,0,0" Height="231" VerticalAlignment="Top" HorizontalAlignment="Left" Width="367" ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Item" DisplayMemberBinding="{Binding meetingItem_item}"/>
@@ -25,7 +25,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView x:Name="previousMeetingItemsToForward_lvw" Margin="424,124,10,79">
+        <ListView x:Name="previousMeetingItemsToForward_lvw" Margin="424,124,0,0" Height="231" VerticalAlignment="Top" HorizontalAlignment="Left" Width="366" ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Item" DisplayMemberBinding="{Binding meetingItem_item}"/>
@@ -37,9 +37,10 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="forward_btn" Content=">>" HorizontalAlignment="Center" Margin="0,140,0,0" VerticalAlignment="Top" Click="forward_btn_Click"/>
-        <Button x:Name="return_btn" Content="&lt;&lt;" HorizontalAlignment="Center" Margin="0,186,0,0" VerticalAlignment="Top" Click="return_btn_Click"/>
+        <Button x:Name="forward_btn" Content=">>" HorizontalAlignment="Left" Margin="390,140,0,0" VerticalAlignment="Top" Click="forward_btn_Click"/>
+        <Button x:Name="return_btn" Content="&lt;&lt;" HorizontalAlignment="Left" Margin="390,186,0,0" VerticalAlignment="Top" Click="return_btn_Click"/>
         <Label x:Name="previousMeetingItems_lbl" Content="Previous Meeting Items:" HorizontalAlignment="Left" Margin="14,93,0,0" VerticalAlignment="Top"/>
         <Label x:Name="previousMeetingItemsToForward_lbl" Content="Forward to New Meeting:" HorizontalAlignment="Left" Margin="424,93,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="createMeeting_btn" Content="Create Meeting" Margin="0,0,10,10" Click="createMeeting_btn_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="86"/>
     </Grid>
 </Window>

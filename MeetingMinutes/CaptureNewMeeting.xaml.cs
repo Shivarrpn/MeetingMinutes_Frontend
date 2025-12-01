@@ -17,6 +17,7 @@ namespace MeetingMinutes
         private static readonly HttpClient client = new HttpClient();
         private string meetingTypeSelection;
         private bool isChangingSelection = false;
+        private bool isClosingWindow = false;
         public CaptureNewMeeting()
         {
             InitializeComponent();
@@ -114,12 +115,22 @@ namespace MeetingMinutes
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
+            if (isClosingWindow) return;
+
             MessageBoxResult result = MessageBox.Show("Are you sure you want to cancel?", "Confirm Meeting Cancellation", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (result == MessageBoxResult.No)
             {
                 e.Cancel = true;
             }
+        }
+
+        private void createMeeting_btn_Click(object sender, RoutedEventArgs e)
+        {
+            Window meeting = new Meeting();
+            meeting.Show();
+            isClosingWindow = true;
+            this.Close();
         }
     }
 }
