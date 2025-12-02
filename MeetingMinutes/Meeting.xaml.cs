@@ -32,5 +32,24 @@ namespace MeetingMinutes
 
             new_items_lvw.Items.Add(editMeetingItem);
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (previousItemsList != null)
+            {
+                foreach (var item in previousItemsList)
+                {
+                    EditMeetingItem meetingItem = new EditMeetingItem();
+                    meetingItem.item_txt.Text = item.meetingItem_item;
+                    meetingItem.status_cmb.SelectedValue = item.status_status;
+                    meetingItem.person_responsible_cmb.SelectedValue = item.person_username;
+                    meetingItem.due_date_dp.SelectedDate = item.meetingItem_dueDate;
+                    meetingItem.completed_date_dp.SelectedDate = item.meetingItem_completedDate;
+                    meetingItem.comment_txt.Text = item.comment;
+
+                    previous_items_lvw.Items.Add(meetingItem);
+                }
+            }
+        }
     }
 }

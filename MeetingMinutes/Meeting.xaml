@@ -5,19 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MeetingMinutes"
         mc:Ignorable="d"
-        Title="Meeting" Height="450" Width="800" WindowState="Maximized" WindowStartupLocation="CenterScreen">
+        Title="Meeting" Height="450" Width="800" WindowState="Maximized" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Grid>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
             <StackPanel x:Name="previous_items_stk">
                 <Label x:Name="previous_items_lbl" Content="Previous Items" FontSize="20" FontWeight="Bold"/>
                 <ListView x:Name="previous_items_lvw" Height="450">
-                    <local:EditMeetingItem/>
                 </ListView>
             </StackPanel>
             <StackPanel x:Name="new_items_stk">
                 <Label x:Name="new_items_lbl" Content="New Items" FontSize="20" FontWeight="Bold"/>
                 <ListView x:Name="new_items_lvw" Height="450" ScrollViewer.CanContentScroll="True">
-                    <local:EditMeetingItem/>
                 </ListView>
                 <Button x:Name="add_new_item_btn" Content="Add New Item" Width="147" HorizontalAlignment="Right" Click="add_new_item_btn_Click"/>
             </StackPanel>
