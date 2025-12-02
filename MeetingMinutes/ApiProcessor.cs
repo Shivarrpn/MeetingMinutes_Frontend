@@ -47,5 +47,43 @@ namespace MeetingMinutes
                 }
             }
         }
+
+        public static async Task<List<string>> LoadStatuses()
+        {
+            string url = mainUrl + "/status/get-all";
+
+            using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    List<string> model = await response.Content.ReadAsAsync<List<string>>();
+
+                    return model;
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+        }
+
+        public static async Task<List<string>> LoadPerson()
+        {
+            string url = mainUrl + "/person/get-all";
+
+            using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    List<string> model = await response.Content.ReadAsAsync<List<string>>();
+
+                    return model;
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+        }
     }
 }

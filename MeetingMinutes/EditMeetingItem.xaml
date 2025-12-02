@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MeetingMinutes"
              mc:Ignorable="d" 
-             d:DesignHeight="220" d:DesignWidth="350">
+             d:DesignHeight="220" d:DesignWidth="350" Loaded="UserControl_Loaded">
     <Grid>
         <Rectangle HorizontalAlignment="Center" Height="220" VerticalAlignment="Center" Width="350" RadiusX="10" RadiusY="10" Fill="#FFBDBDBD"/>
         <Grid>

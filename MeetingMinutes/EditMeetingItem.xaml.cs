@@ -33,5 +33,30 @@ namespace MeetingMinutes
                 due_date_dp.SelectedDate = System.DateTime.Today;
             }
         }
+        private async Task LoadStatusDropdown()
+        {
+            var status = await ApiProcessor.LoadStatuses();
+
+            for (int i = 0; i < status.Count; i++)
+            {
+                status_cmb.Items.Add(status[i].ToString());
+            }
+        }
+
+        private async Task LoadPersonDropdown()
+        {
+            var person = await ApiProcessor.LoadPerson();
+
+            for (int i = 0; i < person.Count; i++)
+            {
+                person_responsible_cmb.Items.Add(person[i].ToString());
+            }
+        }
+
+        private async void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            await LoadStatusDropdown();
+            await LoadPersonDropdown();
+        }
     }
 }
