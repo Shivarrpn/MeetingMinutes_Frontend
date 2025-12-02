@@ -127,7 +127,13 @@ namespace MeetingMinutes
 
         private void createMeeting_btn_Click(object sender, RoutedEventArgs e)
         {
-            Window meeting = new Meeting();
+            List<GetMeetingItemsDto> previousItemsToForwardList = new List<GetMeetingItemsDto>();
+
+            foreach (GetMeetingItemsDto item in previousMeetingItemsToForward_lvw.Items)
+            {
+                previousItemsToForwardList.Add(item);
+            }
+            Window meeting = new Meeting(previousItemsToForwardList);
             meeting.Show();
             isClosingWindow = true;
             this.Close();

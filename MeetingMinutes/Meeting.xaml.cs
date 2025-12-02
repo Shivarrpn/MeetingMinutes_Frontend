@@ -19,9 +19,18 @@ namespace MeetingMinutes
     /// </summary>
     public partial class Meeting : Window
     {
-        public Meeting()
+        private List<GetMeetingItemsDto> previousItemsList;
+        public Meeting(List<GetMeetingItemsDto> previousItemsList)
         {
             InitializeComponent();
+            this.previousItemsList = previousItemsList;
+        }
+
+        private void add_new_item_btn_Click(object sender, RoutedEventArgs e)
+        {
+            EditMeetingItem editMeetingItem = new EditMeetingItem();
+
+            new_items_lvw.Items.Add(editMeetingItem);
         }
     }
 }
