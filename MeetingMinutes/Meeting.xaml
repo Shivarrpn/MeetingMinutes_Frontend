@@ -13,21 +13,21 @@
             <Label x:Name="meetingDate_lbl" FontSize="24" FontWeight="Bold"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <StackPanel x:Name="previous_items_stk">
-                <Label x:Name="previous_items_lbl" Content="Previous Items" FontSize="20" FontWeight="Bold"/>
-                <ListView x:Name="previous_items_lvw" Height="450">
+            <StackPanel x:Name="previousItems_stk">
+                <Label x:Name="previousItems_lbl" Content="Previous Items" FontSize="20" FontWeight="Bold"/>
+                <ListView x:Name="previousItems_lvw" Height="450">
                 </ListView>
             </StackPanel>
             <Separator Width="50" Visibility="Hidden"/>
-            <StackPanel x:Name="new_items_stk">
-                <Label x:Name="new_items_lbl" Content="New Items" FontSize="20" FontWeight="Bold"/>
-                <ListView x:Name="new_items_lvw" Height="450" ScrollViewer.CanContentScroll="True">
+            <StackPanel x:Name="newItems_stk">
+                <Label x:Name="newItems_lbl" Content="New Items" FontSize="20" FontWeight="Bold"/>
+                <ListView x:Name="newItems_lvw" Height="450" ScrollViewer.CanContentScroll="True">
                 </ListView>
                 <StackPanel HorizontalAlignment="Right">
-                    <Button x:Name="add_new_item_btn" Content="Add New Item" Width="147" Click="add_new_item_btn_Click"/>
+                    <Button x:Name="addNewItem_btn" Content="Add New Item" Width="147" Click="add_new_item_btn_Click"/>
                 </StackPanel>
             </StackPanel>
         </StackPanel>
-        <Button x:Name="end_meeting_btn" Content="End Meeting" Margin="0,0,10,10" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom" Click="end_meeting_btn_Click"/>
+        <Button x:Name="endMeeting_btn" Content="End Meeting" Margin="0,0,10,10" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom" Click="end_meeting_btn_Click"/>
     </StackPanel>
 </Window>

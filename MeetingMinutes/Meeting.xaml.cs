@@ -37,7 +37,7 @@ namespace MeetingMinutes
         {
             EditMeetingItem editMeetingItem = new EditMeetingItem();
 
-            new_items_lvw.Items.Add(editMeetingItem);
+            newItems_lvw.Items.Add(editMeetingItem);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -48,13 +48,14 @@ namespace MeetingMinutes
                 {
                     EditMeetingItem meetingItem = new EditMeetingItem();
                     meetingItem.item_txt.Text = item.meetingItem_item;
+                    meetingItem.meetingItemId_txt.Text = item.meetingItem_id.ToString();
                     meetingItem.status_cmb.SelectedValue = item.status_status;
                     meetingItem.person_responsible_cmb.SelectedValue = item.person_username;
                     meetingItem.due_date_dp.SelectedDate = item.meetingItem_dueDate;
                     meetingItem.completed_date_dp.SelectedDate = item.meetingItem_completedDate;
                     meetingItem.comment_txt.Text = item.comment;
 
-                    previous_items_lvw.Items.Add(meetingItem);
+                    previousItems_lvw.Items.Add(meetingItem);
                 }
             }
         }
@@ -64,11 +65,41 @@ namespace MeetingMinutes
             MessageBoxResult result = MessageBox.Show("Please confirm end of meeting", "End Meeting", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
-                var previousMeetingItems = previous_items_lvw.Items.Cast<GetMeetingItemsDto>().ToList();
+                var previousMeetingItems = previousItems_lvw.Items.Cast<EditMeetingItem>().ToList();
+                List<GetMeetingItemsDto> previousItemsList = new List<GetMeetingItemsDto>();
 
-                var newMeetingItems = new_items_lvw.Items.Cast<GetMeetingItemsDto>().ToList();
+                foreach (var item in previousMeetingItems)
+                {
+                    var previousItem = new GetMeetingItemsDto(
+                        item.comment_txt.Text,
+                        int.Parse(item.meetingItemId_txt.Text.ToString()),
+                        item.item_txt.Text,
+                        item.due_date_dp.SelectedDate,
+                        item.completed_date_dp.SelectedDate,
+                        item.person_responsible_cmb.SelectedValue.ToString(),
+                        item.status_cmb.SelectedValue.ToString());
 
-                EndMeetingDto endMeetingDto = new EndMeetingDto(currentMeetingData.id, previousMeetingItems, newMeetingItems);
+                    previousItemsList.Add(previousItem);
+                }
+
+                var newMeetingItems = newItems_lvw.Items.Cast<EditMeetingItem>().ToList();
+                List<GetMeetingItemsDto> newItemsList = new List<GetMeetingItemsDto>();
+
+                foreach (var item in newMeetingItems)
+                {
+                    var newItem = new GetMeetingItemsDto();
+
+                    newItem.comment = item.comment_txt.Text.ToString();
+                    newItem.meetingItem_item = item.item_txt.Text.ToString();
+                    newItem.meetingItem_dueDate = item.due_date_dp.SelectedDate;
+                    newItem.meetingItem_completedDate = item.completed_date_dp.SelectedDate;
+                    newItem.person_username = item.person_responsible_cmb.SelectedValue.ToString();
+                    newItem.status_status = item.status_cmb.SelectedValue.ToString();
+
+                    newItemsList.Add(newItem);
+                }
+
+                EndMeetingDto endMeetingDto = new EndMeetingDto(currentMeetingData.id, previousItemsList, newItemsList);
 
                 await ApiProcessor.EndMeeting(endMeetingDto);
 

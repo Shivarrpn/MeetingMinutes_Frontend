@@ -8,6 +8,10 @@ namespace MeetingMinutes
 {
     public class GetMeetingItemsDto
     {
+        public GetMeetingItemsDto()
+        {
+        }
+
         public GetMeetingItemsDto(string comment, int meetingItem_id, string meetingItem_item, DateTime? meetingItem_dueDate, DateTime? meetingItem_completedDate, string person_username, string status_status)
         {
             this.comment = comment;

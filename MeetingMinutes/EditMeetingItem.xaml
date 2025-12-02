@@ -7,6 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="220" d:DesignWidth="350" Loaded="UserControl_Loaded">
     <Grid>
+        <TextBox x:Name="meetingItemId_txt" HorizontalAlignment="Left" Margin="267,77,0,0" VerticalAlignment="Top"/>
         <Rectangle HorizontalAlignment="Center" Height="220" VerticalAlignment="Center" Width="350" RadiusX="10" RadiusY="10" Fill="#FFBDBDBD"/>
         <Grid>
             <Label x:Name="item_lbl" Content="Item:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.47,0.257" Width="106" FontSize="11"/>
@@ -23,4 +24,5 @@
             <TextBox x:Name="comment_txt" HorizontalAlignment="Left" Margin="10,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="326" Height="55" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" FontSize="11"/>
         </Grid>
     </Grid>
+    
 </UserControl>
