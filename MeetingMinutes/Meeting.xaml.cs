@@ -19,11 +19,18 @@ namespace MeetingMinutes
     /// </summary>
     public partial class Meeting : Window
     {
+        private CreateMeetingDto currentMeetingData;
         private List<GetMeetingItemsDto> previousItemsList;
-        public Meeting(List<GetMeetingItemsDto> previousItemsList)
+        public Meeting(List<GetMeetingItemsDto> previousItemsList, CreateMeetingDto currentMeetingData)
         {
             InitializeComponent();
+            ApiHelper.InitialiseClient();
             this.previousItemsList = previousItemsList;
+            this.currentMeetingData = currentMeetingData;
+
+            meetingType_lbl.Content = currentMeetingData.meetingType_meetingType;
+            meetingTypeAcronym_lbl.Content = "(" + currentMeetingData.meetingType_typeAcronym + currentMeetingData.meetingNumber + ")";
+            meetingDate_lbl.Content = " - " + currentMeetingData.meetingDatetime.ToShortDateString();
         }
 
         private void add_new_item_btn_Click(object sender, RoutedEventArgs e)
@@ -49,6 +56,23 @@ namespace MeetingMinutes
 
                     previous_items_lvw.Items.Add(meetingItem);
                 }
+            }
+        }
+
+        private async void end_meeting_btn_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Please confirm end of meeting", "End Meeting", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                var previousMeetingItems = previous_items_lvw.Items.Cast<GetMeetingItemsDto>().ToList();
+
+                var newMeetingItems = new_items_lvw.Items.Cast<GetMeetingItemsDto>().ToList();
+
+                EndMeetingDto endMeetingDto = new EndMeetingDto(currentMeetingData.id, previousMeetingItems, newMeetingItems);
+
+                await ApiProcessor.EndMeeting(endMeetingDto);
+
+                this.Close();
             }
         }
     }

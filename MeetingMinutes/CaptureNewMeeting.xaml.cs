@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
-using System.ComponentModel;
 
 namespace MeetingMinutes
 {
@@ -22,6 +24,15 @@ namespace MeetingMinutes
         {
             InitializeComponent();
             ApiHelper.InitialiseClient();
+
+            for (int i = 0; i < 24; i++)
+            {
+                meetingTimeHour_cmb.Items.Add(i);
+            }
+            for (int i = 0; i < 60; i++)
+            {
+                meetingTimeMinute_cmb.Items.Add(i);
+            }
         }
 
         private async Task LoadMeetingTypeDropdown()
@@ -125,18 +136,39 @@ namespace MeetingMinutes
             }
         }
 
-        private void createMeeting_btn_Click(object sender, RoutedEventArgs e)
+        private async void createMeeting_btn_Click(object sender, RoutedEventArgs e)
         {
-            List<GetMeetingItemsDto> previousItemsToForwardList = new List<GetMeetingItemsDto>();
-
-            foreach (GetMeetingItemsDto item in previousMeetingItemsToForward_lvw.Items)
+            if (meetingType_cmb.SelectedItem != null && meetingDate_dp.SelectedDate != null && meetingTimeHour_cmb.Text != null && meetingTimeMinute_cmb.Text != null)
             {
-                previousItemsToForwardList.Add(item);
+                List<GetMeetingItemsDto> previousItemsToForwardList = new List<GetMeetingItemsDto>();
+
+                DateTime? selectedDate = meetingDate_dp.SelectedDate;
+                int hour = int.Parse(meetingTimeHour_cmb.SelectedValue.ToString());
+                int minute = int.Parse(meetingTimeMinute_cmb.SelectedValue.ToString());
+
+                DateTime meetingDateTime = new DateTime(
+                    selectedDate.Value.Year,
+                    selectedDate.Value.Month,
+                    selectedDate.Value.Day,
+                    hour, minute,
+                    0);
+
+                var newMeeting = await ApiProcessor.CreateMeeting(meetingType_cmb.SelectedValue.ToString(), meetingDateTime);
+
+                foreach (GetMeetingItemsDto item in previousMeetingItemsToForward_lvw.Items)
+                {
+                    previousItemsToForwardList.Add(item);
+                }
+
+                Window meeting = new Meeting(previousItemsToForwardList, newMeeting);
+                meeting.Show();
+                isClosingWindow = true;
+                this.Close();
             }
-            Window meeting = new Meeting(previousItemsToForwardList);
-            meeting.Show();
-            isClosingWindow = true;
-            this.Close();
+            else
+            {
+                MessageBox.Show("Please fill in all required fields!", "Missing Input", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
     }
 }

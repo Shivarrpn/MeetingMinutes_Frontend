@@ -27,11 +27,11 @@ namespace MeetingMinutes
 
         private void due_date_dp_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (due_date_dp.SelectedDate < System.DateTime.Today)
+            /*if (due_date_dp.SelectedDate < DateTime.Today)
             {
                 MessageBox.Show("You cannot select any date before the current date", "Invalid Date Selected", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                due_date_dp.SelectedDate = System.DateTime.Today;
-            }
+                due_date_dp.SelectedDate = DateTime.Today;
+            }*/
         }
         private async Task LoadStatusDropdown()
         {
