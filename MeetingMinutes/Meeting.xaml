@@ -21,10 +21,11 @@
             <Separator Width="50" Visibility="Hidden"/>
             <StackPanel x:Name="newItems_stk">
                 <Label x:Name="newItems_lbl" Content="New Items" FontSize="20" FontWeight="Bold"/>
-                <ListView x:Name="newItems_lvw" Height="450" ScrollViewer.CanContentScroll="True">
+                <ListView x:Name="newItems_lvw" Height="450" ScrollViewer.CanContentScroll="True" SelectionMode="Single">
                 </ListView>
                 <StackPanel HorizontalAlignment="Right">
                     <Button x:Name="addNewItem_btn" Content="Add New Item" Width="147" Click="add_new_item_btn_Click"/>
+                    <Button x:Name="removeNewItem_btn" Content="Remove New Item" Width="147" Click="removeNewItem_btn_Click"/>
                 </StackPanel>
             </StackPanel>
         </StackPanel>

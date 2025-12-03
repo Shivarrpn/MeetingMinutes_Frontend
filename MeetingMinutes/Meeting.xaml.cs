@@ -106,5 +106,18 @@ namespace MeetingMinutes
                 this.Close();
             }
         }
+
+        private void removeNewItem_btn_Click(object sender, RoutedEventArgs e)
+        {
+            if (newItems_lvw.SelectedItems.Count > 0)
+            {
+                MessageBoxResult result = MessageBox.Show("Are you sure you want to remove this item?", "Remove Item", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    newItems_lvw.SelectedItems.Clear();
+                }
+            }
+        }
     }
 }

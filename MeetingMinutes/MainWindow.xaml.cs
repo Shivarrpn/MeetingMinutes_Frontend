@@ -27,6 +27,8 @@ namespace MeetingMinutes
             InitializeComponent();
             ApiHelper.InitialiseClient();
 
+            captureNewMeeting_btn.IsEnabled = false;
+
             meetingItem_lbl.Visibility = Visibility.Collapsed;
             meetingItem_txt.Visibility = Visibility.Collapsed;
 
@@ -158,6 +160,8 @@ namespace MeetingMinutes
 
             apiConnected_lbl.Foreground = new SolidColorBrush(Colors.Green);
             apiConnected_lbl.Content = testString;
+
+            captureNewMeeting_btn.IsEnabled = true;
             await LoadReportSelectionDropdown();
         }
 

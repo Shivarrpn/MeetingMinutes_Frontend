@@ -217,8 +217,8 @@ namespace MeetingMinutes
 
         public static async Task<List<MeetingItemHistoryDto>> GetReportData(string reportType, string meetingItem, string meetingType, int meetingNumber)
         {
-            /*try
-            {*/
+            try
+            {
                 string url_level2 = "/report";
                 
 
@@ -266,7 +266,7 @@ namespace MeetingMinutes
             return null;
                 
                 
-            /*}
+            }
             catch (HttpRequestException)
             {
                 MessageBox.Show("Please start the API then open the application", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -277,7 +277,7 @@ namespace MeetingMinutes
                 MessageBox.Show($"Unexpected error occurred: {ex.Message}", "Fatal error", MessageBoxButton.OK, MessageBoxImage.Error);
                 Application.Current.Shutdown();
             }
-            return null;*/
+            return null;
         }
     }
 }
