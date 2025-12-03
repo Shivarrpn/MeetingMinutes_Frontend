@@ -46,7 +46,7 @@ namespace MeetingMinutes
             {
                 foreach (var item in previousItemsList)
                 {
-                    EditMeetingItem meetingItem = new EditMeetingItem();
+                    EditMeetingItemPreviousItem meetingItem = new EditMeetingItemPreviousItem();
                     meetingItem.item_txt.Text = item.meetingItem_item;
                     meetingItem.meetingItemId_txt.Text = item.meetingItem_id.ToString();
                     meetingItem.status_cmb.SelectedValue = item.status_status;

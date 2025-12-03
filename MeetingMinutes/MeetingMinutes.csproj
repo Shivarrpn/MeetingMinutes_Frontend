@@ -84,6 +84,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="EditMeetingItemPreviousItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="EditMeetingItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -101,6 +105,9 @@
       <DependentUpon>CaptureNewMeeting.xaml</DependentUpon>
     </Compile>
     <Compile Include="CreateMeetingDto.cs" />
+    <Compile Include="EditMeetingItemPreviousItem.xaml.cs">
+      <DependentUpon>EditMeetingItemPreviousItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EditMeetingItem.xaml.cs">
       <DependentUpon>EditMeetingItem.xaml</DependentUpon>
     </Compile>

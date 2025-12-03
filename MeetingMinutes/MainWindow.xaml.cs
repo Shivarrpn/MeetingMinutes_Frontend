@@ -24,6 +24,22 @@ namespace MeetingMinutes
         public MainWindow()
         {
             InitializeComponent();
+            ApiHelper.InitialiseClient();
+        }
+
+        private async Task LoadReportSelectionDropdown()
+        {
+            List<string> reportTypes = new List<string>();
+
+            reportTypes.Add("Item History");
+            reportTypes.Add("Items by Meeting Type");
+            reportTypes.Add("Items by Meeting Type & Meeting Number");
+            reportTypes.Add("Items Per Person");
+
+            for (int i = 0; i < reportTypes.Count; i++)
+            {
+                report_cmb.Items.Add(reportTypes[i].ToString());
+            }
         }
 
         private void captureNewMeeting_btn_Click(object sender, RoutedEventArgs e)
@@ -31,6 +47,20 @@ namespace MeetingMinutes
             CaptureNewMeeting captureNewMeeting = new CaptureNewMeeting();
 
             captureNewMeeting.ShowDialog();
+        }
+
+        private async void report_cmb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            var testString = await ApiProcessor.TestApi();
+
+            apiConnected_lbl.Foreground = new SolidColorBrush(Colors.Green);
+            apiConnected_lbl.Content = testString;
+            await LoadReportSelectionDropdown();
         }
     }
 }

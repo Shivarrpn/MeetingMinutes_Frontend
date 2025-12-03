@@ -5,8 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MeetingMinutes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" WindowState="Maximized" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" Height="450" Width="800" WindowState="Maximized" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Grid>
         <Button x:Name="captureNewMeeting_btn" Content="Capture New Meeting" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="28" Width="134" Click="captureNewMeeting_btn_Click"/>
+        <ListView x:Name="report_lvw" ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="39,102,38,10">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Item" DisplayMemberBinding="{Binding meetingItem}"/>
+                    <GridViewColumn Header="Comment" DisplayMemberBinding="{Binding comment}"/>
+                    <GridViewColumn Header="Date Item Added" DisplayMemberBinding="{Binding addedDateTime}"/>
+                    <GridViewColumn Header="Meeting Type" DisplayMemberBinding="{Binding meetingType}"/>
+                    <GridViewColumn Header="Meeting Number" DisplayMemberBinding="{Binding meetingNumberFull}"/>
+                    <GridViewColumn Header="Meeting Date" DisplayMemberBinding="{Binding meetingDateTime}"/>
+                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding status}"/>
+                    <GridViewColumn Header="Person Responsible" DisplayMemberBinding="{Binding personResponsible}"/>
+                    <GridViewColumn Header="Due Date" DisplayMemberBinding="{Binding dueDate}"/>
+                    <GridViewColumn Header="Completed Date" DisplayMemberBinding="{Binding completedDate}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ComboBox x:Name="report_cmb" HorizontalAlignment="Left" Margin="127,75,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="report_cmb_SelectionChanged"/>
+        <Label x:Name="report_lbl" Content="Select Report:" HorizontalAlignment="Left" Margin="39,71,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="apiConnected_lbl" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Foreground="#FF1ACE11"/>
+
     </Grid>
 </Window>

@@ -138,7 +138,7 @@ namespace MeetingMinutes
 
         private async void createMeeting_btn_Click(object sender, RoutedEventArgs e)
         {
-            if (meetingType_cmb.SelectedItem != null && meetingDate_dp.SelectedDate != null && meetingTimeHour_cmb.Text != null && meetingTimeMinute_cmb.Text != null)
+            if (meetingType_cmb.SelectedItem != null && meetingDate_dp.SelectedDate != null && meetingTimeHour_cmb.SelectedValue != null && meetingTimeMinute_cmb.SelectedValue != null)
             {
                 List<GetMeetingItemsDto> previousItemsToForwardList = new List<GetMeetingItemsDto>();
 
