@@ -127,6 +127,7 @@
     <Compile Include="Meeting.xaml.cs">
       <DependentUpon>Meeting.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MeetingItemHistoryDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

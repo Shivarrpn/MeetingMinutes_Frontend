@@ -65,7 +65,7 @@ namespace MeetingMinutes
             MessageBoxResult result = MessageBox.Show("Please confirm end of meeting", "End Meeting", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
-                var previousMeetingItems = previousItems_lvw.Items.Cast<EditMeetingItem>().ToList();
+                var previousMeetingItems = previousItems_lvw.Items.Cast<EditMeetingItemPreviousItem>().ToList();
                 List<GetMeetingItemsDto> previousItemsList = new List<GetMeetingItemsDto>();
 
                 foreach (var item in previousMeetingItems)

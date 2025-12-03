@@ -27,6 +27,13 @@
         <ComboBox x:Name="report_cmb" HorizontalAlignment="Left" Margin="127,75,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="report_cmb_SelectionChanged"/>
         <Label x:Name="report_lbl" Content="Select Report:" HorizontalAlignment="Left" Margin="39,71,0,0" VerticalAlignment="Top"/>
         <Label x:Name="apiConnected_lbl" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Foreground="#FF1ACE11"/>
+        <TextBox x:Name="meetingItem_txt" HorizontalAlignment="Left" Margin="280,75,0,0" VerticalAlignment="Top" Width="120" Height="22"/>
+        <ComboBox x:Name="meetingType_cmb" HorizontalAlignment="Left" Margin="405,75,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="meetingType_cmb_SelectionChanged"/>
+        <ComboBox x:Name="meetingNumber_cmb" HorizontalAlignment="Left" Margin="530,75,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="meetingNumber_cmb_SelectionChanged"/>
+        <Label x:Name="meetingItem_lbl" Content="Meeting Item" HorizontalAlignment="Left" Margin="280,44,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="meetingType_lbl" Content="Meeting Type" HorizontalAlignment="Left" Margin="405,44,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="meetingNumber_lbl" Content="Meeting Number" HorizontalAlignment="Left" Margin="530,44,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="search_Button" Content="Search" HorizontalAlignment="Left" Margin="722,77,0,0" VerticalAlignment="Top" Click="search_Button_Click"/>
 
     </Grid>
 </Window>

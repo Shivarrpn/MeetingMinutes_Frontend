@@ -11,6 +11,8 @@ namespace MeetingMinutes
 {
     public class ApiProcessor
     {
+        public static string reportUrl = "";
+
         static string mainUrl = "http://localhost";
 
         public static async Task<string> TestApi()
@@ -138,6 +140,31 @@ namespace MeetingMinutes
             return null;
         }
 
+        public static async Task<List<string>> LoadMeetingNumbersByMeetingType(string meetingType)
+        {
+            try
+            {
+                string url = mainUrl + "/meeting/get-numbers-by-type?meetingType=" + meetingType;
+
+                HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url);
+                response.EnsureSuccessStatusCode();
+
+                List<string> model = await response.Content.ReadAsAsync<List<string>>();
+                return model;
+            }
+            catch (HttpRequestException)
+            {
+                MessageBox.Show("Please start the API then open the application", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Application.Current.Shutdown();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unexpected error occurred: {ex.Message}", "Fatal error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Application.Current.Shutdown();
+            }
+            return null;
+        }
+
         public static async Task<CreateMeetingDto> CreateMeeting(string meetingType, DateTime meetingDateTime)
         {
             try
@@ -186,6 +213,71 @@ namespace MeetingMinutes
                 MessageBox.Show($"Unexpected error occurred: {ex.Message}", "Fatal error", MessageBoxButton.OK, MessageBoxImage.Error);
                 Application.Current.Shutdown();
             }
+        }
+
+        public static async Task<List<MeetingItemHistoryDto>> GetReportData(string reportType, string meetingItem, string meetingType, int meetingNumber)
+        {
+            /*try
+            {*/
+                string url_level2 = "/report";
+                
+
+                if (reportType == "Item History")
+                { 
+                    reportUrl = mainUrl + url_level2 + "/item-history?meetingItem=" + meetingItem;
+
+                HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(reportUrl);
+                response.EnsureSuccessStatusCode();
+                List<MeetingItemHistoryDto> model = await response.Content.ReadAsAsync<List<MeetingItemHistoryDto>>();
+                
+                return model;
+            } 
+                else if (reportType == "Items by Meeting Type")
+                {
+                    reportUrl = mainUrl + url_level2 + "/items-by-meeting-type?meetingType=" + meetingType;
+
+                HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(reportUrl);
+                response.EnsureSuccessStatusCode();
+
+                List<MeetingItemHistoryDto> model = await response.Content.ReadAsAsync<List<MeetingItemHistoryDto>>();
+                return model;
+            }
+                else if (reportType == "Items by Meeting Type & Meeting Number")
+                {
+                    reportUrl = mainUrl + url_level2 + "/items-by-meeting-type-and-meeting-number?meetingType=" + meetingType + "&meetingNumber=" + meetingNumber;
+
+                HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(reportUrl);
+                response.EnsureSuccessStatusCode();
+
+                List<MeetingItemHistoryDto> model = await response.Content.ReadAsAsync<List<MeetingItemHistoryDto>>();
+                return model;
+            }
+                else if (reportType == "Items Per Person")
+                {
+                    reportUrl = mainUrl + url_level2 + "/items-per-person";
+
+                HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(reportUrl);
+                response.EnsureSuccessStatusCode();
+
+                List<MeetingItemHistoryDto> model = await response.Content.ReadAsAsync<List<MeetingItemHistoryDto>>();
+                return model;
+            }
+
+            return null;
+                
+                
+            /*}
+            catch (HttpRequestException)
+            {
+                MessageBox.Show("Please start the API then open the application", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Application.Current.Shutdown();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unexpected error occurred: {ex.Message}", "Fatal error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Application.Current.Shutdown();
+            }
+            return null;*/
         }
     }
 }
