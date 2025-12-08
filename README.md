@@ -42,3 +42,13 @@ The below are required for the installation to run successfully:
 
 ## 💡 Usage
 This is the UI application which will be the actual applicable used by the end user to track meetings, assign tasks, and run reports.
+
+## 💾 Database
+### Please see below the ERD for only meeting related entities:
+
+<img width="474" height="451" alt="MeetingMinutes ERD" src="https://github.com/user-attachments/assets/c373ffe7-d876-4395-84c9-b3968c863af2" />
+
+
+### This is the database diagram with all entities:
+
+<img width="1634" height="1320" alt="meeting_minutes_schema" src="https://github.com/user-attachments/assets/d56e0ffe-527d-4eef-a424-c59bb3f72cef" />
